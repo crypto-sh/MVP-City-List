@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">BackBase</string>
+
+    <string name="error_message">Error loading data</string>
+
+    <string name="hint_filter">search city</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
