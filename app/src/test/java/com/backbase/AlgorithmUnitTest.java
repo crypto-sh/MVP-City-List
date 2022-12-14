@@ -1,8 +1,15 @@
 package com.backbase;
 
 
+import static junit.framework.TestCase.assertEquals;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import com.backbase.models.CityInfo;
 import com.backbase.utils.Algorithm;
+
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,15 +19,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
-
 public class AlgorithmUnitTest {
 
-    int listLenght = 100;
+    int listLength = 100;
 
     private CityInfo[] cities;
 
@@ -29,13 +30,13 @@ public class AlgorithmUnitTest {
     @Before
     public void setup(){
         sortList = new Algorithm();
-        cities = sortList.generateCitiesInfo(listLenght);
+        cities = sortList.generateCitiesInfo(listLength);
     }
 
     @Test
     public void arrayEntityTest(){
         System.out.println("start of test arrayEntityTest");
-        assertEquals(cities.length,listLenght);
+        assertEquals(cities.length, listLength);
         assertThat(cities[0],instanceOf(CityInfo.class));
     }
 
@@ -56,14 +57,14 @@ public class AlgorithmUnitTest {
         System.out.println("start of test searchArrayListTest");
         Random number               = new Random();
         int selected                = number.nextInt(cities.length);
-        String cityname             = cities[selected].getCompareString();
-        String prefix               = cityname.substring(0,2);
+        String cityName             = cities[selected].getCompareString();
+        String prefix               = cityName.substring(0,2);
 
         //sort list
         sortList.MergeSort(cities);
 
         List<CityInfo> filteredCity = sortList.searchPrefix(prefix, Arrays.asList(cities));
-        List<Long> filteredId = new ArrayList<Long>();;
+        List<Long> filteredId = new ArrayList<>();
         for (CityInfo city : filteredCity){
             filteredId.add(city.get_id());
             assertTrue(city.getCompareString().startsWith(prefix));

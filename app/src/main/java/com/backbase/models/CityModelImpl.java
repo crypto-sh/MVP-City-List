@@ -3,12 +3,14 @@ package com.backbase.models;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.VisibleForTesting;
+
+
+import androidx.annotation.VisibleForTesting;
 
 import com.backbase.City;
+import com.backbase.utils.Algorithm;
 import com.backbase.utils.AppExecuter;
 import com.backbase.utils.LogHelper;
-import com.backbase.utils.Algorithm;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -65,7 +67,7 @@ public class CityModelImpl implements City.Model {
 
     @Override
     public void getAllCities() {
-        AppExecuter.getIoExecuter().execute(() -> {
+        AppExecuter.getIoExecutor().execute(() -> {
             String citiesJson = getFileFromAssets();
             if (!logHelper.StringIsEmptyOrNull(citiesJson)) {
                 List<CityInfo> items = parseJsonCities(citiesJson);

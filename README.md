@@ -1,6 +1,6 @@
 # MVP City List
 
-This project created base on [Backbase](https://backbase.com) assignment for hiring process.
+This project created base on [BackBase](https://backbase.com) assignment for hiring process.
 
 
 It has a list of cities containing around 200k entries in JSON format. It should be displayed in the sorted list with capability of filter list.

@@ -6,22 +6,22 @@ import java.util.concurrent.TimeUnit;
 
 public class AppExecuter {
 
-    private static ExecutorService ioExecuter;
+    private static ExecutorService ioExecutor;
 
     private static LogHelper logHelper = new LogHelper(AppExecuter.class);
 
-    public static ExecutorService getIoExecuter() {
-        if (ioExecuter == null) {
-            ioExecuter = Executors.newSingleThreadExecutor();
+    public static ExecutorService getIoExecutor() {
+        if (ioExecutor == null) {
+            ioExecutor = Executors.newSingleThreadExecutor();
         }
-        return ioExecuter;
+        return ioExecutor;
     }
 
 
     public static void stopExecutor() {
-        if (ioExecuter != null && !ioExecuter.isShutdown()) {
+        if (ioExecutor != null && !ioExecutor.isShutdown()) {
             try {
-                ioExecuter.awaitTermination(1, TimeUnit.MILLISECONDS);
+                ioExecutor.awaitTermination(1, TimeUnit.MILLISECONDS);
             } catch (InterruptedException e) {
                 logHelper.e(e);
             }

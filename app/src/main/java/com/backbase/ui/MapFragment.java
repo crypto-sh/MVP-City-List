@@ -14,10 +14,12 @@ import com.backbase.adapter.MarkerWindowsInfoAdapter;
 import com.backbase.models.CityInfo;
 import com.backbase.presenter.MapPresenterImpl;
 import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**

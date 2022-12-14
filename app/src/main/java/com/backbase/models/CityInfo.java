@@ -18,6 +18,7 @@ public class CityInfo implements Parcelable {
     private final LogHelper logHelper = new LogHelper(this.getClass());
 
     public CityInfo() {
+        coord = new CoordinateInfo(0.0, 0.0);
     }
 
     public CityInfo(JSONObject json) {

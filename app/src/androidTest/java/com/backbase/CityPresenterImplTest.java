@@ -1,11 +1,22 @@
 package com.backbase;
 
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static junit.framework.TestCase.assertEquals;
+
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
+
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 
 import com.backbase.models.CityInfo;
 import com.backbase.models.CityModelImpl;
@@ -23,52 +34,46 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static junit.framework.TestCase.assertNotNull;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-
 
 @RunWith(AndroidJUnit4.class)
 public class CityPresenterImplTest {
 
     private Context appContext;
 
-    private City.View cityView;
+    private City.View cityView = mock(City.View.class);
 
-    private CityPresenterImpl presenter;
+    private CityPresenterImpl presenter = new CityPresenterImpl(appContext, cityView);
+
+    @Before
+    public void launchActivity() {
+        appContext = ApplicationProvider.getApplicationContext();
+    }
 
     @Rule
     public ActivityTestRule<MainActivity> activityTestRule = new ActivityTestRule<>(MainActivity.class);
 
-
-    @Before
-    public void launchActivity() {
-        appContext = InstrumentationRegistry.getTargetContext();
-        cityView = mock(City.View.class);
-        presenter = new CityPresenterImpl(appContext,cityView);
+    @Test
+    public void testPackage() {
+        Context appContext = ApplicationProvider.getApplicationContext();
+        assertEquals("com.backbase", appContext.getPackageName());
     }
 
     @Test
-    public void checkErrorWithPresentor(){
+    public void checkErrorWithPresenter() {
         presenter.onFail();
         verify(cityView).showError();
     }
 
     @Test
-    public void checkProgressWithRequestData(){
+    public void checkProgressWithRequestData() {
         presenter.getCitiesInfo();
         verify(cityView).showProgress();
     }
 
     @Test
-    public void checkListshowData(){
-        List<CityInfo> spyList = Mockito.spy(new ArrayList<CityInfo>());
-        CityInfo tehran = new CityInfo("IR","Tehran",120L,new CoordinateInfo(44.00D,34.00D));
+    public void checkListShowData() {
+        List<CityInfo> spyList = Mockito.spy(new ArrayList<>());
+        CityInfo tehran = new CityInfo("IR", "Tehran", 120L, new CoordinateInfo(44.00D, 34.00D));
         spyList.add(tehran);
         Mockito.verify(spyList).add(tehran);
         presenter.onSuccess(spyList);
@@ -80,8 +85,8 @@ public class CityPresenterImplTest {
     }
 
     @Test
-    public void checkLoadDataFromAssets(){
-        CityModelImpl cityModel = new CityModelImpl(appContext,presenter);
+    public void checkLoadDataFromAssets() {
+        CityModelImpl cityModel = new CityModelImpl(appContext, presenter);
         List<CityInfo> cities = cityModel.parseJsonCities(cityModel.getFileFromAssets());
         assertNotNull(cities);
     }
